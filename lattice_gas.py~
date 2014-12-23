@@ -3,7 +3,7 @@
 # William Gilpin 2014
 
 
-from matplotlib import pyplot
+from matplotlib import *
 from scipy import *
 from numpy import *
 
@@ -94,7 +94,7 @@ lat_sz = 10
 # number of lattices to average over at each temperature (replicates)
 num_reps = 20
 
-temps = linspace(.01, 5, num_pts)
+temps = linspace(.01, 5, 4))
 
 engys = zeros(num_pts)
 engy_sq = zeros(num_pts)
@@ -104,11 +104,13 @@ heat_cap = zeros(num_pts)
 for ii in xrange(len(temps)):
     temp = temps[ii]
     
+    # number of runs at that temp to average over
+    N = 1
     engy_temp = list()
     engysq_temp = list()
     part_func_temp = list()
-    for jj in xrange(num_reps): 
-        lattice = floor(2*rand(lat_sz, lat_sz))
+    for jj in xrange(N): 
+        lattice = floor(2*rand(4,4))
         lattice2 = mc_anneal(lattice, temp)
         lat_engy = lattice_energy(lattice2)
         engy_temp.append( lat_engy*exp(-lat_engy/temp))
@@ -125,12 +127,10 @@ for ii in xrange(len(temps)):
     print (str(ii) + ", temperature: " + str(temp))
       
 # A discontinuity appears at the critical temperature
-fig1 = figure(1)
 plot(temps, heat_cap,'.r',markersize=10)
 xlabel("Temperature")
 ylabel("Heat Capacity")
-
-fig2 = figure(2)
+figure()
 semilogy(temps, heat_cap,'.r',markersize=10)
 xlabel("Temperature")
 ylabel("Heat Capacity")
